@@ -60,7 +60,7 @@ public:
         this->_map.erase(key);
     }
 
-    std::unordered_map<K, V> getCopyOfOriginal() const {
+    std::unordered_map<K, V> copy_of_original() const {
         std::lock_guard<std::mutex> lk(this->_m);
         return this->_map;
     }
