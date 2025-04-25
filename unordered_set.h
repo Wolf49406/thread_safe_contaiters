@@ -20,6 +20,14 @@ public:
         return this->_set.end();
     }
 
+    template<typename T>
+    void for_each(T&& func) const {
+        std::lock_guard<std::mutex> lk(this->_m);
+        for (const auto& val : this->_set) {
+            func(val);
+        }
+    }
+
     void insert(const T& value) {
         std::lock_guard<std::mutex> lk(this->_m);
         this->_set.insert(value);
