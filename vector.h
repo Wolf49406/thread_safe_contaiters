@@ -15,10 +15,20 @@ public:
         _vec.push_back(value);
     }
 
-    void erase(size_t index) {
+    void erase(const size_t index) {
         std::lock_guard<std::mutex> lk(this->_m);
         if (index < _vec.size()) {
             _vec.erase(_vec.begin() + index);
+        }
+    }
+
+    void erase_element(const T* element) {
+        std::lock_guard<std::mutex> lk(this->_m);
+        for (size_t i = 0; i < _vec.size(); ++i) {
+            if (_vec[i] == element) {
+                _vec.erase(_vec.begin() + i);
+                --i;
+            }
         }
     }
 
@@ -32,7 +42,7 @@ public:
         return _vec.size();
     }
 
-    T& operator[](size_t index) {
+    T& operator[](size_t index) const {
         std::lock_guard<std::mutex> lk(this->_m);
         return _vec[index];
     }
