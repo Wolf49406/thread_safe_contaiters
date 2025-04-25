@@ -10,6 +10,16 @@ private:
     mutable std::mutex _m;
 
 public:
+    auto begin() const {
+        std::lock_guard<std::mutex> lk(this->_m);
+        return this->_set.begin();
+    }
+
+    auto end() const {
+        std::lock_guard<std::mutex> lk(this->_m);
+        return this->_set.end();
+    }
+
     void insert(const T& value) {
         std::lock_guard<std::mutex> lk(this->_m);
         this->_set.insert(value);
