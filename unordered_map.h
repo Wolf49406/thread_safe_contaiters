@@ -25,12 +25,12 @@ public:
         this->_map[key] = value;
     }
 
-    V& operator[](const K& key) {
+    V& operator[](const K& key) const {
         std::lock_guard<std::mutex> lk(this->_m);
         return this->_map[key];
     }
 
-    V& get(const K& key) {
+    V& get(const K& key) const {
         std::lock_guard<std::mutex> lk(this->_m);
         return this->_map.at(key);
     }
